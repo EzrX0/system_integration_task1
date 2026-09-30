@@ -6,9 +6,9 @@ app = FastAPI()
 
 # Model data
 class student(BaseModel):
-    name : Optional[str] = None
-    address : Optional[str] = None
-    gpa : Optional[int] = None
+    name :str
+    address : str
+    gpa : Optional[float] = None
     semester : Optional[int] = None
     hobby : Optional[str] = None
 
@@ -26,7 +26,7 @@ def read_root():
 @app.post("/student/{item_id}")
 async def create_item(item_id: int, item: student):
     if item_id in items_db:
-        return {"error" : "this student is already registered"}
+        return {"error" : "This student is already registered"}
     items_db[item_id] = item.model_dump()
     return {"message" : "Student registered successfully", "item": items_db[item_id]}
 
